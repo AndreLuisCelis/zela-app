@@ -3,17 +3,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 @Component({
   selector: 'app-header',
   standalone: true,
-  template: `
-    <header class="bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 z-30 px-6 py-4 flex items-center justify-between shadow-sm">
-      <div class="flex items-center gap-2">
-        <div class="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg shadow-blue-200">Z</div>
-        <h1 class="text-xl font-black text-slate-900 tracking-tighter italic">ZELA</h1>
-      </div>
-      <div class="flex items-center gap-2 bg-amber-50 px-4 py-2 rounded-2xl border border-amber-100">
-        <span class="text-sm font-black text-amber-700">⭐ {{ balance() }} Zelas</span>
-      </div>
-    </header>
-  `,
+  templateUrl: './header.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 class HeaderComponent {
