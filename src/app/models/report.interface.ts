@@ -8,5 +8,8 @@ export interface Reports {
   zelasAcumulados: number;
   apoios: number;
   photos: string[];
+  authorId: string;
   createdAt: string;
+  isPatrocinado?: boolean;
+  nivelPatrocinio?: 'BRONZE' | 'PRATA' | 'OURO';
 }
