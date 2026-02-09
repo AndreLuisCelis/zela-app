@@ -1,4 +1,4 @@
-   <div class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-900/60 backdrop-blur-sm">
+<div class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-900/60 backdrop-blur-sm">
       <div class="bg-white w-full max-w-md rounded-t-[3rem] sm:rounded-[3rem] p-8 shadow-2xl animate-in slide-in-from-bottom duration-300 max-h-[90vh] overflow-y-auto">
         <div class="flex justify-between items-center mb-6">
           <h2 class="text-xl font-black text-slate-900 uppercase italic leading-none">Novo Alerta</h2>
@@ -47,6 +47,17 @@
             <input [(ngModel)]="reportData.title" type="text" placeholder="Ex: Vazamento de água" class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold outline-none focus:border-blue-200 transition-colors text-sm">
           </div>
 
+          <!-- ALTERAÇÃO 1: Campo de Descrição Adicionado -->
+          <div>
+            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Descrição Detalhada</label>
+            <textarea
+              [(ngModel)]="reportData.description"
+              rows="3"
+              placeholder="Descreva a ocorrência com mais detalhes, como situação, urgência, impactos..."
+              class="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-medium outline-none focus:border-blue-200 transition-colors text-sm resize-none"
+            ></textarea>
+          </div>
+
           <div>
             <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Categoria</label>
             <div class="grid grid-cols-2 gap-2">
@@ -74,7 +85,7 @@
 
         <button
           (click)="submit()"
-          [disabled]="!reportData.title || !reportData.location"
+          [disabled]="!reportData.title || !reportData.location || !reportData.description"
           class="w-full py-5 bg-blue-600 text-white font-black rounded-2xl uppercase tracking-widest shadow-xl shadow-blue-200 active:scale-95 transition-all disabled:opacity-50">
           Publicar Alerta
         </button>

@@ -29,6 +29,7 @@ export class Home {
   zelaService = inject(ZelaService);
   loginEmail = '';
 
+  activeTab = signal<'home' | 'map' | 'profile'>('home');
   showReportModal = signal(false);
   showSponsorModal = signal(false);
   activeReportId = signal<string | null>(null);

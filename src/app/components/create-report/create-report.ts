@@ -11,15 +11,24 @@ import { FormsModule } from '@angular/forms';
 })
 export class CreateReportComponent {
   close = output<void>();
-  success = output<{ title: string; category: string; location: string, photos: string[] }>();
+  // ALTERAÇÃO 2: Atualizado output para incluir description
+  success = output<{
+    title: string;
+    category: string;
+    location: string;
+    description: string; // NOVO CAMPO
+    photos: string[]
+  }>();
 
   categories = ['LIMPEZA', 'INFRA', 'SEGURANÇA', 'OUTROS'];
   photos = signal<string[]>([]);
 
+  // ALTERAÇÃO 3: Adicionado campo description ao reportData
   reportData = {
     title: '',
     category: 'LIMPEZA',
-    location: ''
+    location: '',
+    description: '' // NOVO CAMPO
   };
 
   triggerFileInput() {
@@ -27,15 +36,37 @@ export class CreateReportComponent {
     el?.click();
   }
 
-  handleFile(event: any) {
+  async handleFile(event: any) {
     const file = event.target.files[0];
-    if (file && this.photos().length < 5) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.photos.update(prev => [...prev, e.target.result]);
+    if (!file) return;
+      if (file && this.photos().length < 5) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const img = new Image();
+      img.src = e.target.result;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 800;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > MAX_WIDTH) {
+          height *= MAX_WIDTH / width;
+          width = MAX_WIDTH;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, width, height);
+
+        // Converte para JPEG com compressão
+        const compressed = canvas.toDataURL('image/jpeg', 0.6);
+        this.photos.update(prev => [...prev, compressed]);
       };
-      reader.readAsDataURL(file);
-    }
+    };
+    reader.readAsDataURL(file);
+  }
   }
 
   removePhoto(index: number) {
@@ -43,6 +74,7 @@ export class CreateReportComponent {
   }
 
   submit() {
+    // ALTERAÇÃO 4: Agora envia também a description
     this.success.emit({
       ...this.reportData,
       photos: this.photos()
