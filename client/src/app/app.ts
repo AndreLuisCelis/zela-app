@@ -30,7 +30,7 @@ interface Report {
   //         <div class="w-8 h-8 bg-[#3B82F6] rounded-lg flex items-center justify-center text-white font-bold shadow-sm">Z</div>
   //         <h1 class="text-xl font-black text-[#0F172A] tracking-tight">ZELA</h1>
   //       </div>
-
+  // 
   //       <div class="flex items-center gap-3">
   //         @if (isLoggedIn()) {
   //           <div class="flex items-center gap-3 animate-in">
@@ -49,7 +49,7 @@ interface Report {
   //         }
   //       </div>
   //     </header>
-
+  // 
   //     <main class="max-w-md mx-auto p-6">
   //       <!-- Visualização: Lista de Ocorrências (Feed) -->
   //       @if (view() === 'list') {
@@ -58,7 +58,7 @@ interface Report {
   //             <h2 class="text-lg font-black text-[#0F172A] uppercase tracking-wide">Feed da Cidade</h2>
   //             <span class="text-[10px] font-bold text-gray-400 uppercase bg-gray-100 px-2 py-1 rounded-md">Perto de si</span>
   //           </div>
-
+  // 
   //           @for (item of reports(); track item.id) {
   //             <div class="bg-white border border-gray-100 rounded-[2.5rem] p-6 shadow-sm hover:shadow-md transition-all animate-in overflow-hidden">
   //               <div class="mb-4">
@@ -69,7 +69,7 @@ interface Report {
   //                 <h3 class="text-lg font-black text-[#1E293B] leading-tight uppercase italic mb-1">{{ item.title }}</h3>
   //                 <p class="text-xs text-gray-500 line-clamp-2 leading-relaxed">{{ item.description }}</p>
   //               </div>
-
+  // 
   //               <!-- Carrossel com Setas -->
   //               @if (item.photos.length > 0) {
   //                 <div class="relative -mx-6 mb-6 group">
@@ -80,7 +80,7 @@ interface Report {
   //                       </div>
   //                     }
   //                   </div>
-
+  // 
   //                   @if (item.photos.length > 1) {
   //                     <button (click)="scrollCarousel(carousel, -1)" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/40 backdrop-blur-md rounded-full flex items-center justify-center text-white shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
   //                       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"/></svg>
@@ -88,7 +88,7 @@ interface Report {
   //                     <button (click)="scrollCarousel(carousel, 1)" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/40 backdrop-blur-md rounded-full flex items-center justify-center text-white shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
   //                       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg>
   //                     </button>
-
+  // 
   //                     <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
   //                       @for (p of item.photos; track $index) {
   //                         <div class="w-1.5 h-1.5 rounded-full bg-white/50 border border-black/5"></div>
@@ -97,12 +97,12 @@ interface Report {
   //                   }
   //                 </div>
   //               }
-
+  // 
   //               <div class="flex items-center gap-2 text-gray-400 text-xs mb-6 px-1">
   //                 <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
   //                 <span class="truncate">{{ item.location }}</span>
   //               </div>
-
+  // 
   //               <div class="flex gap-4 mb-6">
   //                  <div class="flex-1 bg-gray-50 rounded-2xl p-3 border border-gray-100 text-center">
   //                     <p class="text-[9px] font-black text-gray-400 uppercase mb-1">Recompensa</p>
@@ -113,7 +113,7 @@ interface Report {
   //                     <p class="text-sm font-black text-blue-600">👥 {{ item.apoios }}</p>
   //                  </div>
   //               </div>
-
+  // 
   //               <div class="grid grid-cols-2 gap-3 pt-4 border-t border-gray-50">
   //                 <button (click)="openSponsorModal(item)" class="py-3 rounded-2xl bg-amber-50 text-[10px] font-black uppercase text-amber-600 hover:bg-amber-100 transition-all border border-amber-100 active:scale-95">Patrocinar</button>
   //                 <button (click)="handleApoiar(item.id)" class="py-3 rounded-2xl bg-blue-50 text-[10px] font-black uppercase text-blue-600 hover:bg-blue-100 transition-all border border-blue-100 active:scale-95">Apoiar</button>
@@ -123,7 +123,7 @@ interface Report {
   //           }
   //         </div>
   //       }
-
+  // 
   //       <!-- Visualização: Criar Nova Ocorrência -->
   //       @else if (view() === 'create') {
   //         <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-gray-50 animate-in">
@@ -133,7 +133,7 @@ interface Report {
   //               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
   //             </button>
   //           </div>
-
+  // 
   //           <form (submit)="createReport($event)" class="flex flex-col gap-6">
   //             <div>
   //               <label class="block text-[10px] font-black uppercase text-gray-400 ml-1 tracking-widest mb-3">Fotos ({{ uploadedPhotos().length }}/5)</label>
@@ -153,7 +153,7 @@ interface Report {
   //                 }
   //               </div>
   //             </div>
-
+  // 
   //             <div class="space-y-4">
   //               <input name="title" [(ngModel)]="newReport.title" required class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none text-sm font-bold focus:ring-2 focus:ring-blue-500" placeholder="O que aconteceu?">
   //               <select name="category" [(ngModel)]="newReport.category" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none text-sm font-semibold">
@@ -165,14 +165,14 @@ interface Report {
   //               <textarea name="description" [(ngModel)]="newReport.description" required rows="3" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none text-sm leading-relaxed" placeholder="Dê-nos mais detalhes..."></textarea>
   //               <input name="location" [(ngModel)]="newReport.location" required class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none text-sm" placeholder="Onde fica? (Rua, Bairro)">
   //             </div>
-
+  // 
   //             <button type="submit" [disabled]="userZelas() < 10" class="bg-blue-600 text-white font-black py-5 rounded-3xl mt-2 shadow-xl shadow-blue-100 active:scale-95 disabled:opacity-50 transition-all uppercase text-sm tracking-widest">
   //               Publicar (-10 Zelas)
   //             </button>
   //           </form>
   //         </div>
   //       }
-
+  // 
   //       <!-- Visualização: Autenticação -->
   //       @if (view() === 'auth') {
   //         <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-gray-50 animate-in">
@@ -184,19 +184,19 @@ interface Report {
   //               {{ authMode() === 'login' ? 'Inicie sessão para cuidar da sua cidade' : 'Junte-se a milhares de cidadãos ativos' }}
   //             </p>
   //           </div>
-
+  // 
   //           <form (submit)="handleAuthSubmit($event)" class="flex flex-col gap-4">
   //             @if (authMode() === 'signup') {
   //               <input type="text" [(ngModel)]="authForm.name" name="name" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none text-sm animate-in" placeholder="Nome Completo">
   //             }
   //             <input type="email" [(ngModel)]="authForm.email" name="email" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none text-sm" placeholder="E-mail">
   //             <input type="password" [(ngModel)]="authForm.password" name="password" class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-4 outline-none text-sm" placeholder="Senha">
-
+  // 
   //             <button type="submit" class="bg-[#0F172A] text-white font-black py-5 rounded-2xl mt-4 uppercase text-sm tracking-widest active:scale-95 shadow-lg shadow-gray-200">
   //               {{ authMode() === 'login' ? 'Entrar' : 'Começar Agora' }}
   //             </button>
   //           </form>
-
+  // 
   //           <div class="mt-8 text-center border-t border-gray-50 pt-6">
   //             <p class="text-xs text-gray-400 mb-2">
   //               {{ authMode() === 'login' ? 'Ainda não tem conta?' : 'Já possui uma conta?' }}
@@ -205,28 +205,28 @@ interface Report {
   //               {{ authMode() === 'login' ? 'Criar Nova Conta' : 'Fazer Login' }}
   //             </button>
   //           </div>
-
+  // 
   //           <button (click)="view.set('list')" class="w-full mt-6 text-[10px] uppercase font-bold text-gray-300 hover:text-gray-500 transition-colors">Voltar ao Início</button>
   //         </div>
   //       }
   //     </main>
-
+  // 
   //     <!-- Navegação Inferior -->
   //     <nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-100 px-12 py-5 flex items-center justify-between z-20 shadow-[0_-5px_20px_rgba(0,0,0,0.02)]">
   //       <button (click)="view.set('list')"
   //         [class]="'transition-all ' + (view() === 'list' ? 'text-blue-600 scale-110' : 'text-gray-300 hover:text-gray-400')">
   //         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
   //       </button>
-
+  // 
   //       <button (click)="handleCreateView()" class="bg-[#0F172A] text-white w-14 h-14 rounded-2xl shadow-xl flex items-center justify-center -translate-y-8 active:scale-90 transition-all border-4 border-white hover:bg-blue-600">
   //         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
   //       </button>
-
+  // 
   //       <button (click)="handleMockProfile()" class="text-gray-300 hover:text-blue-600 transition-colors">
   //         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
   //       </button>
   //     </nav>
-
+  // 
   //     <!-- Modal de Notificação Genérico -->
   //     @if (modalMessage()) {
   //       <div class="fixed inset-0 bg-[#0F172A]/40 backdrop-blur-sm z-50 flex items-center justify-center p-6 animate-in">
@@ -238,7 +238,7 @@ interface Report {
   //         </div>
   //       </div>
   //     }
-
+  // 
   //     <!-- Modal de Opções de Patrocínio -->
   //     @if (selectedReportForSponsor()) {
   //       <div class="fixed inset-0 bg-[#0F172A]/60 backdrop-blur-md z-50 flex items-end sm:items-center justify-center animate-in">
@@ -252,11 +252,11 @@ interface Report {
   //               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
   //             </button>
   //           </div>
-
+  // 
   //           <p class="text-sm text-gray-500 mb-8 leading-relaxed">
   //             Ao patrocinar, aumentas a recompensa para quem resolver esta ocorrência. O valor será retirado do teu saldo ⭐.
   //           </p>
-
+  // 
   //           <div class="grid grid-cols-3 gap-3 mb-8">
   //             @for (opt of sponsorOptions; track opt) {
   //               <button (click)="sponsorAmount.set(opt)"
@@ -265,7 +265,7 @@ interface Report {
   //               </button>
   //             }
   //           </div>
-
+  // 
   //           <div class="mb-8">
   //             <label class="block text-[10px] font-black uppercase text-gray-400 mb-3 tracking-widest ml-1">Valor Personalizado</label>
   //             <div class="relative">
@@ -274,12 +274,12 @@ interface Report {
   //                 class="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-6 outline-none font-bold text-sm focus:ring-2 focus:ring-amber-500 transition-all">
   //             </div>
   //           </div>
-
+  // 
   //           <div class="bg-gray-50 rounded-2xl p-4 mb-8 flex justify-between items-center border border-gray-100">
   //             <span class="text-[10px] font-black uppercase text-gray-400">Total a Investir</span>
   //             <span class="text-xl font-black text-amber-600">⭐ {{ sponsorAmount() }}</span>
   //           </div>
-
+  // 
   //           <button (click)="handleSponsor(sponsorAmount())"
   //             [disabled]="sponsorAmount() <= 0 || userZelas() < sponsorAmount()"
   //             class="w-full py-5 bg-[#0F172A] text-white font-black rounded-3xl uppercase text-sm tracking-widest shadow-xl shadow-gray-200 active:scale-95 disabled:opacity-30 transition-all">
