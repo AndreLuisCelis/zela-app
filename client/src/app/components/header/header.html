@@ -1,0 +1,19 @@
+<header class="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between sticky top-0 z-30">
+  <div class="flex items-center gap-3">
+    <img [src]="user()?.avatar" class="w-10 h-10 rounded-full bg-slate-100" />
+    <div>
+      <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest leading-none">
+        Cidadão Ativo
+      </p>
+      <h1 class="text-xs font-black text-slate-900 uppercase italic">{{ user()?.name }}</h1>
+    </div>
+  </div>
+  <div class="bg-amber-50 px-3 py-2 rounded-xl border border-amber-100">
+    <span class="text-xs font-black text-amber-700">⭐ {{ user()?.balance }}</span>
+  </div>
+  <button (click)="authService.logout()" class="p-3 bg-slate-100 rounded-xl">
+    <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path d="M17 16l4-4m0 0l-4-4m4 4H7" />
+    </svg>
+  </button>
+</header>
