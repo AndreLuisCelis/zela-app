@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # Servidor Backend
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: zela-server
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=${MONGO_URI:-mongodb://mongodb:27017/zelamorato}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
+    depends_on:
+      - mongodb
+    networks:
+      - zela-network
+
+  # Frontend Client
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: zela-client
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+    networks:
+      - zela-network
+
+  # Banco de Dados Local (Opcional, se não usar Atlas)
+  mongodb:
+    image: mongo:latest
+    container_name: zela-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - zela-network
+
+networks:
+  zela-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
