@@ -14,7 +14,19 @@ import { errorHandler } from './middlewares/error.middleware';
 const app = express();
 
 // --- MIDDLEWARES ---
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:4200', // Angular dev server
+    'http://localhost:3000', // Node.js server (se necessário)
+    'https://dh35dmlg-80.brs.devtunnels.ms', // Seu dev tunnel
+    'https://*.devtunnels.ms' // Permitir todos subdomínios devtunnels
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposedHeaders: ['Content-Range', 'X-Content-Range'],
+  credentials: true, // Permitir cookies/credenciais se necessário
+  maxAge: 86400, // Cache de preflight por 24h
+}));
 app.use(express.json({ limit: '10mb' })); // Aumentado para suportar Base64 das fotos
 
 // --- ROTAS DA API ---
