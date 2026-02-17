@@ -13,6 +13,7 @@ class ReportCardComponent {
   report = input.required<Reports>();
   support = output<string>();
   sponsor = output<string>();
+  solve = output<string>();
 
   @ViewChild('scrollContainer') scrollContainer!: ElementRef<HTMLDivElement>;
   currentIndex = signal(0);

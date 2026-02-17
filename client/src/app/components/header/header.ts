@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { User } from '../../models/user.interface';
 import { AuthService } from '../../services/auth';
@@ -14,4 +14,5 @@ export class HeaderComponent {
   authService = inject(AuthService);
   balance = input.required<number>();
   user = input<User | null>(null);
+  loginClick = output<void>();
 }

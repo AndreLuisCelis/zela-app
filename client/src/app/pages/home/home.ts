@@ -10,6 +10,7 @@ import { CreateReportComponent } from "../../components/create-report/create-rep
 import { SponsorOption } from '../../models/sponsor-option.interface';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth';
+import { SolveModalComponent } from '../../components/solve-modal/solve-modal';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,8 @@ import { AuthService } from '../../services/auth';
     ReportCardComponent,
     SponsorModalComponent,
     CreateReportComponent,
-    AuthComponent
+    AuthComponent,
+    SolveModalComponent
   ],
   templateUrl: './home.html',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -34,7 +36,18 @@ export class Home {
   activeTab = signal<'home' | 'map' | 'profile'>('home');
   showReportModal = signal(false);
   showSponsorModal = signal(false);
+  showAuthModal = signal(false);
+  showSolveModal = signal(false);
   activeReportId = signal<string | null>(null);
+  activeSolveReportId = signal<string | null>(null);
+
+  requireAuth(callback: () => void) {
+    if (this.authService.isAuthenticatedValue) {
+      callback();
+    } else {
+      this.showAuthModal.set(true);
+    }
+  }
 
   handleReportSuccess(data: { title: string; category: string; location: string, images: string[] }) {
     this.zelaService.addReport(data);
@@ -42,8 +55,10 @@ export class Home {
   }
 
   openSponsor(reportId: string) {
-    this.activeReportId.set(reportId);
-    this.showSponsorModal.set(true);
+    this.requireAuth(() => {
+      this.activeReportId.set(reportId);
+      this.showSponsorModal.set(true);
+    });
   }
 
   async handleSponsorSuccess(option: SponsorOption) {
@@ -55,5 +70,39 @@ export class Home {
         this.activeReportId.set(null);
       }
     }
+  }
+
+  handleSupport(reportId: string) {
+    this.requireAuth(() => {
+      this.zelaService.addSupport(reportId);
+    });
+  }
+
+  openCreateReport() {
+    this.requireAuth(() => {
+      this.showReportModal.set(true);
+    });
+  }
+
+  handleAuthSuccess() {
+    this.showAuthModal.set(false);
+  }
+
+  handleSolve(reportId: string) {
+    this.requireAuth(() => {
+      this.activeSolveReportId.set(reportId);
+      this.showSolveModal.set(true);
+    });
+  }
+
+  confirmSolve(data: { plan: string; images: File[] }) {
+    console.log('Resolving report:', this.activeSolveReportId(), data);
+
+    // Aqui vai a lógica para marcar como 'Em Progresso' ou similar
+    // Por enquanto, apenas fecha o modal e limpa estado
+    this.showSolveModal.set(false);
+    this.activeSolveReportId.set(null);
+    // Opcional: Mostrar toast de sucesso
+    alert('Missão aceite! Obrigado por ajudar a comunidade.');
   }
 }
