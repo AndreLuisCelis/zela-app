@@ -26,11 +26,13 @@ interface RegisterData {
   password: string;
 }
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api'; // Ajuste para sua URL
+  private apiUrl = environment.apiUrl; // Ajuste para sua URL
   private tokenKey = 'auth_token';
   private userKey = 'user_data';
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());

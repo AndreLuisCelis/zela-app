@@ -4,12 +4,13 @@ import { Reports } from "../models/report.interface";
 import { SponsorOption } from "../models/sponsor-option.interface";
 import { AuthService } from "./auth";
 import { firstValueFrom, tap } from "rxjs";
+import { environment } from "../../environments/environment";
 
 @Injectable({ providedIn: 'root' })
 export class ZelaService {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
-  private apiUrl = 'http://localhost:3000/api/reports';
+  private apiUrl = `${environment.apiUrl}/reports`;
 
   private _reports = signal<Reports[]>([]);
   reports = computed(() => this._reports());
