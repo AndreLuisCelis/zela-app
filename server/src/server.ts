@@ -19,7 +19,8 @@ app.use(cors({
     'http://localhost:4200', // Angular dev server
     'http://localhost:3000', // Node.js server (se necessário)
     'https://dh35dmlg-80.brs.devtunnels.ms', // Seu dev tunnel
-    'https://*.devtunnels.ms' // Permitir todos subdomínios devtunnels
+    'https://*.devtunnels.ms', // Permitir todos subdomínios devtunnels
+    'https://zela-app-celisapp.netlify.app' // Netlify App
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
@@ -38,19 +39,19 @@ app.use(errorHandler);
 
 // --- INICIAR SERVIDOR ---
 const startServer = async (): Promise<void> => {
-    try {
-        // Conectar ao banco de dados
-        await connectDatabase();
+  try {
+    // Conectar ao banco de dados
+    await connectDatabase();
 
-        // Iniciar servidor
-        app.listen(config.port, () => {
-            console.log(`🚀 Servidor a correr na porta ${config.port}`);
-            console.log(`📝 Ambiente: ${config.nodeEnv}`);
-        });
-    } catch (error) {
-        console.error('❌ Erro ao iniciar servidor:', error);
-        process.exit(1);
-    }
+    // Iniciar servidor
+    app.listen(config.port, () => {
+      console.log(`🚀 Servidor a correr na porta ${config.port}`);
+      console.log(`📝 Ambiente: ${config.nodeEnv}`);
+    });
+  } catch (error) {
+    console.error('❌ Erro ao iniciar servidor:', error);
+    process.exit(1);
+  }
 };
 
 startServer();
