@@ -10,9 +10,27 @@
       </div>
     </div>
 
-    @for (report of zelaService.reports(); track report._id) {
-    <app-report-card (support)="handleSupport(report._id)" (sponsor)="openSponsor(report._id)"
-      (solve)="handleSolve(report._id)" [report]="report"></app-report-card>
+    @if (zelaService.isLoading()) {
+      <!-- Skeleton Loaders -->
+      @for (i of [1, 2, 3]; track i) {
+      <div class="bg-white rounded-[2rem] p-5 shadow-sm border border-slate-100 mb-4 animate-pulse">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 rounded-full bg-slate-200"></div>
+          <div class="flex-1">
+            <div class="h-4 bg-slate-200 rounded w-1/3 mb-2"></div>
+            <div class="h-3 bg-slate-200 rounded w-1/4"></div>
+          </div>
+        </div>
+        <div class="h-4 bg-slate-200 rounded w-3/4 mb-2"></div>
+        <div class="h-4 bg-slate-200 rounded w-1/2 mb-4"></div>
+        <div class="h-48 rounded-2xl bg-slate-200 mb-4"></div>
+      </div>
+      }
+    } @else {
+      @for (report of zelaService.reports(); track report._id) {
+      <app-report-card (support)="handleSupport(report._id)" (sponsor)="openSponsor(report._id)"
+        (solve)="handleSolve(report._id)" [report]="report"></app-report-card>
+      }
     }
   </main>
   <!-- BOTTOM TAB BAR -->

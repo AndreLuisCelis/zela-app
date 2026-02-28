@@ -15,16 +15,22 @@ export class ZelaService {
   private _reports = signal<Reports[]>([]);
   reports = computed(() => this._reports());
 
+  private _isLoading = signal<boolean>(true);
+  isLoading = computed(() => this._isLoading());
+
   constructor() {
     this.loadReports();
   }
 
   async loadReports() {
+    this._isLoading.set(true);
     try {
       const reports = await firstValueFrom(this.http.get<Reports[]>(this.apiUrl));
       this._reports.set(reports);
     } catch (error) {
       console.error('Erro ao carregar reports:', error);
+    } finally {
+      this._isLoading.set(false);
     }
   }
 

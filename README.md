@@ -2,6 +2,8 @@
 
 Bem-vindo ao repositório do **Zela App**! Este é um projeto full-stack desenvolvido com **Angular** no frontend e **Node.js/Express** no backend, utilizando **MongoDB** como banco de dados. O projeto também está configurado para rodar facilmente com **Docker**.
 
+🔗 **Acesse a aplicação em produção:** [Zela App no Netlify](https://zela-app-celisapp.netlify.app/)
+
 ## 📋 Sobre o Projeto
 
 O Zela App é uma plataforma para gerenciamento e visualização de ocorrências (Zelas), permitindo que usuários relatem e acompanhem problemas na comunidade.
