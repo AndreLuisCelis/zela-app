@@ -12,6 +12,7 @@ interface LoginResponse {
     name: string;
     avatar: string;
     balance: number;
+    roles: string[];
   };
 }
 

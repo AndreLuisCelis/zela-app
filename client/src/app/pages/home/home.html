@@ -91,3 +91,16 @@
   </div>
 </div>
 }
+
+@if (showNoticeModal()) {
+<app-notice-modal 
+  [title]="noticeData().title" 
+  [message]="noticeData().message" 
+  [type]="noticeData().type"
+  [buttonText]="noticeData().buttonText || 'Entendi'"
+  [actionButtonText]="noticeData().actionButtonText"
+  (action)="handleNoticeAction()"
+  (close)="showNoticeModal.set(false)" />
+}
+
+

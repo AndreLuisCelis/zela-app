@@ -40,8 +40,9 @@ export const register = async (req: Request, res: Response): Promise<void> => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                avatar: (user as any).avatar,
-                balance: (user as any).balance
+                avatar: user.avatar,
+                balance: user.balance,
+                roles: user.roles
             }
         });
     } catch (error) {
@@ -83,8 +84,9 @@ export const login = async (req: Request, res: Response): Promise<void> => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                avatar: (user as any).avatar,
-                balance: (user as any).balance
+                avatar: user.avatar,
+                balance: user.balance,
+                roles: user.roles
             }
         });
     } catch (error) {

@@ -1,9 +1,17 @@
-<div
+<div (click)="close.emit()"
     class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] flex items-center justify-center p-6 animate-in fade-in zoom-in duration-200">
-    <div class="bg-white rounded-[2.5rem] p-8 max-w-md w-full shadow-2xl relative overflow-hidden">
+    <div (click)="$event.stopPropagation()" class="bg-white rounded-[2.5rem] p-8 max-w-md w-full shadow-2xl relative overflow-hidden">
 
         <!-- Background Decoration -->
-        <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-bl-[100%] -z-0"></div>
+        <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-bl-[100%] -z-0 pointer-events-none"></div>
+
+        <!-- Botão Fechar -->
+        <button (click)="close.emit()"
+            class="absolute top-6 right-6 z-20 text-emerald-800/40 hover:text-emerald-600 bg-white/50 hover:bg-white rounded-full p-2 transition-all shadow-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
 
         <div class="relative z-10">
             <div

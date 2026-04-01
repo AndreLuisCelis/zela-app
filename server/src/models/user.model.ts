@@ -10,6 +10,7 @@ export interface User {
     email: string;
     avatar: string;
     balance: number;
+    roles: string[];
 }
 
 /**
@@ -21,6 +22,7 @@ export interface IUser extends Document {
     password: string;
     avatar: string;
     balance: number;
+    roles: string[];
     createdAt: Date;
     comparePassword(candidatePassword: string): Promise<boolean>;
 }
@@ -54,6 +56,11 @@ const UserSchema = new Schema<IUser>({
     balance: {
         type: Number,
         default: 2000
+    },
+    roles: {
+        type: [String],
+        enum: ['user', 'resolver', 'admin'],
+        default: ['user']
     },
     createdAt: {
         type: Date,

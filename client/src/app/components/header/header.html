@@ -2,11 +2,12 @@
   <div class="flex items-center gap-3">
     @if (user()) {
     <img [src]="user()?.avatar" class="w-10 h-10 rounded-full bg-slate-100" />
-    <div>
-      <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest leading-none">
+    <div class="flex flex-col justify-center">
+      <p class="text-[8px] font-black text-blue-500 uppercase tracking-widest leading-none mb-0.5">
         Cidadão Ativo
       </p>
-      <h1 class="text-xs font-black text-slate-900 uppercase italic">{{ user()?.name }}</h1>
+      <h1 class="text-xs font-black text-slate-900 uppercase italic leading-tight">{{ user()?.name }}</h1>
+      <p class="text-[9px] font-bold text-slate-400 truncate max-w-[120px]">{{ user()?.email }}</p>
     </div>
     } @else {
     <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">
@@ -23,7 +24,7 @@
 
   @if (user()) {
   <div class="bg-amber-50 px-3 py-2 rounded-xl border border-amber-100">
-    <span class="text-xs font-black text-amber-700">⭐ {{ user()?.balance }}</span>
+    <span class="text-xs font-black text-amber-700">🪙 {{ user()?.balance }}</span>
   </div>
   <button (click)="authService.logout()"
     class="p-3 bg-slate-100 rounded-xl hover:bg-red-50 text-slate-500 hover:text-red-500 transition-colors">

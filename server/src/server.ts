@@ -3,11 +3,15 @@
  * Tecnologia: Node.js, Express, Mongoose (MongoDB)
  */
 
+import dns from 'node:dns';
 import express from 'express';
 import cors from 'cors';
 import { config } from './config/env.config';
 import { connectDatabase } from './config/database.config';
 import routes from './routes';
+
+// Forçar o uso do DNS do Google para evitar o erro querySrv ECONNREFUSED (comum no Windows/MongoDB Atlas)
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 import { notFoundHandler } from './middlewares/notFound.middleware';
 import { errorHandler } from './middlewares/error.middleware';
 
