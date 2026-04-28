@@ -42,7 +42,13 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router
-  ) { }
+  ) {
+    if (this.hasToken()) {
+      this.refreshProfile().subscribe({
+        error: (err) => console.error('Erro ao atualizar perfil na inicialização', err)
+      });
+    }
+  }
 
   // Login
   login(credentials: LoginCredentials): Observable<LoginResponse> {
@@ -84,6 +90,33 @@ export class AuthService {
     this.isAuthenticatedSubject.next(false);
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
+  }
+
+  // Refresh Profile
+  refreshProfile(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/auth/me`).pipe(
+      tap(response => {
+        if (response && response.user) {
+          // Precisamos adaptar os campos de _id para id para manter consistência com o login
+          const userData = {
+            id: response.user._id,
+            name: response.user.name,
+            email: response.user.email,
+            avatar: response.user.avatar,
+            balance: response.user.balance,
+            roles: response.user.roles
+          };
+          this.updateUser(userData);
+        }
+      }),
+      catchError(error => {
+        // Se houver erro de autenticação (401), podemos deslogar, mas aqui só repassamos o erro
+        if (error.status === 401) {
+           this.logout();
+        }
+        return throwError(() => error);
+      })
+    );
   }
 
   // Verificar autenticação
