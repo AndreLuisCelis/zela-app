@@ -140,8 +140,12 @@ export class Home {
   handleNoticeAction() {
     if (this.noticeData().actionType === 'request_resolver') {
       // Simulação de solicitação
-      alert('Sua solicitação para ser um Resolvedor foi recebida! Aguarde a aprovação da administração.');
-      this.showNoticeModal.set(false);
+      this.noticeData.set({
+        title: 'Solicitação Enviada',
+        message: 'Sua solicitação para ser um Resolvedor foi recebida! Aguarde a aprovação da administração.',
+        type: 'success',
+        buttonText: 'Entendi'
+      });
     }
   }
 
@@ -152,7 +156,14 @@ export class Home {
     // Por enquanto, apenas fecha o modal e limpa estado
     this.showSolveModal.set(false);
     this.activeSolveReportId.set(null);
-    // Opcional: Mostrar toast de sucesso
-    alert('Missão aceite! Obrigado por ajudar a comunidade.');
+
+    // Exibe o modal padrão de sucesso
+    this.noticeData.set({
+      title: 'Missão Aceita',
+      message: 'Missão aceite! Obrigado por ajudar a comunidade.',
+      type: 'success',
+      buttonText: 'Entendi'
+    });
+    this.showNoticeModal.set(true);
   }
 }

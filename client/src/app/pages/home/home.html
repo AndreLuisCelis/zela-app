@@ -2,7 +2,7 @@
   <app-header [user]="authService.getCurrentUser() |async"
     [balance]="(authService.getCurrentUser() |async)?.balance || 0" (loginClick)="showAuthModal.set(true)"></app-header>
 
-  <main class="p-6 max-w-md mx-auto">
+  <main class="p-6 max-w-2xl mx-auto w-full">
     <div class="flex justify-between items-center mb-6">
       <h2 class="text-lg font-black text-slate-900 uppercase italic">Ocorrências Ativas</h2>
       <div class="flex gap-1">
