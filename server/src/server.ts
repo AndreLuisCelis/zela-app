@@ -22,6 +22,8 @@ app.use(cors({
   origin: [
     'http://localhost:4200', // Angular dev server
     'http://localhost:3000', // Node.js server (se necessário)
+    'http://localhost',      // Capacitor Android WebView
+    'capacitor://localhost', // Capacitor iOS WebView
     'https://dh35dmlg-80.brs.devtunnels.ms', // Seu dev tunnel
     'https://*.devtunnels.ms', // Permitir todos subdomínios devtunnels
     'https://zela-app-celisapp.netlify.app' // Netlify App
