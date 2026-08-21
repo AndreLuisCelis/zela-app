@@ -19,20 +19,16 @@ const app = express();
 
 // --- MIDDLEWARES ---
 app.use(cors({
-  origin: [
-    'http://localhost:4200', // Angular dev server
-    'http://localhost:3000', // Node.js server (se necessário)
-    'http://localhost',      // Capacitor Android WebView
-    'capacitor://localhost', // Capacitor iOS WebView
-    'https://dh35dmlg-80.brs.devtunnels.ms', // Seu dev tunnel
-    'https://*.devtunnels.ms', // Permitir todos subdomínios devtunnels
-    'https://zela-app-celisapp.netlify.app' // Netlify App
-  ],
+  origin: (origin, callback) => {
+    // Permitir qualquer origem (inclui Capacitor Android, iOS e navegadores)
+    // A segurança é garantida pelo token JWT em cada requisição
+    callback(null, true);
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   exposedHeaders: ['Content-Range', 'X-Content-Range'],
-  credentials: true, // Permitir cookies/credenciais se necessário
-  maxAge: 86400, // Cache de preflight por 24h
+  credentials: true,
+  maxAge: 86400,
 }));
 app.use(express.json({ limit: '10mb' })); // Aumentado para suportar Base64 das fotos
 
