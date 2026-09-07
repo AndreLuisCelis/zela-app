@@ -13,17 +13,38 @@
   </h3>
 
   @if (report().images.length > 0) {
-  <div class="relative mb-4 group h-48 rounded-2xl overflow-hidden">
-    <div class="absolute inset-0 flex overflow-x-auto snap-x snap-mandatory scrollbar-hide [scrollbar-width:none]">
+  <div class="relative mb-4 group h-72 rounded-2xl overflow-hidden">
+    <div #scrollContainer (scroll)="onScroll($event)"
+      class="absolute inset-0 flex overflow-x-auto snap-x snap-mandatory scrollbar-hide [scrollbar-width:none]">
       @for (image of report().images; track image; let i = $index) {
       <div class="min-w-full flex-shrink-0 snap-center h-full">
         <img [src]="image" class="w-full h-full object-cover" loading="lazy" />
       </div>
       }
     </div>
+
     @if (report().images.length > 1) {
-    <div class="absolute bottom-3 right-3 bg-navy-900/60 backdrop-blur-md px-2 py-1 rounded-full text-white text-[10px] font-bold tracking-widest">
-      1/{{ report().images.length }}
+    <!-- Setas de navegação -->
+    <button (click)="scrollPrev($event)" aria-label="Imagem anterior"
+      class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/60 backdrop-blur-md rounded-full flex items-center justify-center text-navy-900 shadow-lg hover:bg-white active:scale-90 transition-all z-10">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    <button (click)="scrollNext($event)" aria-label="Próxima imagem"
+      class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/60 backdrop-blur-md rounded-full flex items-center justify-center text-navy-900 shadow-lg hover:bg-white active:scale-90 transition-all z-10">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+    <!-- Barrinha indicadora -->
+    <div
+      class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-navy-900/50 backdrop-blur-md px-2.5 py-1.5 rounded-full">
+      @for (image of report().images; track image; let i = $index) {
+      <span
+        [class]="'h-1.5 rounded-full transition-all duration-300 ' + (currentIndex() === i ? 'w-6 bg-white' : 'w-1.5 bg-white/50')"></span>
+      }
     </div>
     }
   </div>

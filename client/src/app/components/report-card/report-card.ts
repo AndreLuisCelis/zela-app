@@ -48,11 +48,13 @@ export class ReportCardComponent {
 
   scrollPrev(event: Event) {
     event.stopPropagation();
-    this.scrollContainer.nativeElement.scrollLeft -= this.scrollContainer.nativeElement.offsetWidth;
+    const el = this.scrollContainer.nativeElement;
+    el.scrollBy({ left: -el.offsetWidth, behavior: 'smooth' });
   }
 
   scrollNext(event: Event) {
     event.stopPropagation();
-    this.scrollContainer.nativeElement.scrollLeft += this.scrollContainer.nativeElement.offsetWidth;
+    const el = this.scrollContainer.nativeElement;
+    el.scrollBy({ left: el.offsetWidth, behavior: 'smooth' });
   }
 }

@@ -175,11 +175,15 @@ export class ReportDetailPage implements OnInit {
     }
   }
 
-  scrollPrev() {
-    this.scrollContainer.nativeElement.scrollLeft -= this.scrollContainer.nativeElement.offsetWidth;
+  scrollPrev(event: Event) {
+    event.stopPropagation();
+    const el = this.scrollContainer.nativeElement;
+    el.scrollBy({ left: -el.offsetWidth, behavior: 'smooth' });
   }
 
-  scrollNext() {
-    this.scrollContainer.nativeElement.scrollLeft += this.scrollContainer.nativeElement.offsetWidth;
+  scrollNext(event: Event) {
+    event.stopPropagation();
+    const el = this.scrollContainer.nativeElement;
+    el.scrollBy({ left: el.offsetWidth, behavior: 'smooth' });
   }
 }

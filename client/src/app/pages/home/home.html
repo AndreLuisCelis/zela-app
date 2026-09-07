@@ -28,7 +28,7 @@
       }
     } @else {
       @for (report of zelaService.reports(); track report._id) {
-      <app-report-card [report]="report" (selectReport)="openReportDetail($event)"></app-report-card>
+      <app-report-card class="block mb-5" [report]="report" (selectReport)="openReportDetail($event)"></app-report-card>
       }
     }
   </main>
