@@ -5,26 +5,19 @@ import { ZelaService } from '../../services/zela-service';
 import { Reports } from '../../models/report.interface';
 import { ReportCardComponent } from '../../components/report-card/report-card';
 import { SponsorModalComponent } from '../../components/sponsor-modal/sponsor-modal';
-import { HeaderComponent } from '../../components/header/header';
-import { AuthComponent } from "../../components/auth/auth";
-import { CreateReportComponent } from "../../components/create-report/create-report";
-import { SponsorOption } from '../../models/sponsor-option.interface';
-import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth';
 import { SolveModalComponent } from '../../components/solve-modal/solve-modal';
 import { NoticeModalComponent } from '../../components/notice-modal/notice-modal';
+import { SponsorOption } from '../../models/sponsor-option.interface';
+import { AuthService } from '../../services/auth';
+import { UiStore } from '../../services/ui-store';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    HeaderComponent,
     ReportCardComponent,
     SponsorModalComponent,
-    CreateReportComponent,
-    AuthComponent,
     SolveModalComponent,
     NoticeModalComponent
   ],
@@ -34,24 +27,20 @@ import { NoticeModalComponent } from '../../components/notice-modal/notice-modal
 export class Home {
   zelaService = inject(ZelaService);
   authService = inject(AuthService);
+  uiStore = inject(UiStore);
   private router = inject(Router);
 
-  loginEmail = '';
-
-  activeTab = signal<'home' | 'map' | 'profile'>('home');
-  showReportModal = signal(false);
   showSponsorModal = signal(false);
-  showAuthModal = signal(false);
   showSolveModal = signal(false);
   showNoticeModal = signal(false);
 
-  noticeData = signal<{ 
-    title: string, 
-    message: string, 
+  noticeData = signal<{
+    title: string,
+    message: string,
     type: 'error' | 'success' | 'info',
     buttonText?: string,
     actionButtonText?: string,
-    actionType?: string 
+    actionType?: string
   }>({
     title: '',
     message: '',
@@ -69,13 +58,8 @@ export class Home {
     if (this.authService.isAuthenticatedValue) {
       callback();
     } else {
-      this.showAuthModal.set(true);
+      this.uiStore.openAuth();
     }
-  }
-
-  handleReportSuccess(data: { title: string; category: string; location: string, images: string[] }) {
-    this.zelaService.addReport(data);
-    this.showReportModal.set(false);
   }
 
   openSponsor(reportId: string) {
@@ -108,16 +92,6 @@ export class Home {
     this.requireAuth(() => {
       this.zelaService.addSupport(reportId);
     });
-  }
-
-  openCreateReport() {
-    this.requireAuth(() => {
-      this.showReportModal.set(true);
-    });
-  }
-
-  handleAuthSuccess() {
-    this.showAuthModal.set(false);
   }
 
   handleSolve(reportId: string) {

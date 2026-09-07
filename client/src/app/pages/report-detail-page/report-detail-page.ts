@@ -6,9 +6,9 @@ import { AuthService } from '../../services/auth';
 import { Reports } from '../../models/report.interface';
 import { SponsorModalComponent } from '../../components/sponsor-modal/sponsor-modal';
 import { SolveModalComponent } from '../../components/solve-modal/solve-modal';
-import { AuthComponent } from '../../components/auth/auth';
 import { NoticeModalComponent } from '../../components/notice-modal/notice-modal';
 import { SponsorOption } from '../../models/sponsor-option.interface';
+import { UiStore } from '../../services/ui-store';
 
 @Component({
   selector: 'app-report-detail-page',
@@ -18,7 +18,6 @@ import { SponsorOption } from '../../models/sponsor-option.interface';
     RouterModule,
     SponsorModalComponent,
     SolveModalComponent,
-    AuthComponent,
     NoticeModalComponent
   ],
   templateUrl: './report-detail-page.html',
@@ -29,6 +28,7 @@ export class ReportDetailPage implements OnInit {
   private router = inject(Router);
   zelaService = inject(ZelaService);
   authService = inject(AuthService);
+  uiStore = inject(UiStore);
 
   reportId = signal<string | null>(null);
 
@@ -42,7 +42,6 @@ export class ReportDetailPage implements OnInit {
   isLoading = signal<boolean>(true);
 
   showSponsorModal = signal(false);
-  showAuthModal = signal(false);
   showSolveModal = signal(false);
   showNoticeModal = signal(false);
 
@@ -81,7 +80,7 @@ export class ReportDetailPage implements OnInit {
     if (this.authService.isAuthenticatedValue) {
       callback();
     } else {
-      this.showAuthModal.set(true);
+      this.uiStore.openAuth();
     }
   }
 
