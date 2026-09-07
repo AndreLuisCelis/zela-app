@@ -34,6 +34,15 @@ export class ZelaService {
     }
   }
 
+  async getReportById(id: string): Promise<Reports | null> {
+    let report = this._reports().find(r => r._id === id);
+    if (!report) {
+      await this.loadReports();
+      report = this._reports().find(r => r._id === id);
+    }
+    return report || null;
+  }
+
   async addReport(data: Partial<Reports>) {
     try {
       const newReport = await firstValueFrom(this.http.post<Reports>(this.apiUrl, data));

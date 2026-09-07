@@ -1,41 +1,41 @@
-    <div class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-900/60 backdrop-blur-sm">
-      <div class="bg-white w-full max-w-md rounded-t-[3rem] sm:rounded-[3rem] p-8 shadow-2xl animate-in slide-in-from-bottom duration-300">
-        <div class="flex justify-between items-center mb-6">
-          <h2 class="text-xl font-black text-slate-900 uppercase italic">Impulsionar Alerta</h2>
-          <button (click)="close.emit()" class="p-2 bg-slate-100 rounded-full">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
-          </button>
-        </div>
-
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Escolha o nível de patrocínio para aumentar a visibilidade e prioridade desta ocorrência.</p>
-
-        <div class="space-y-3 mb-8">
-          @for (opt of options; track opt.id) {
-            <button
-              (click)="selectedOption.set(opt)"
-              [class]="'w-full flex items-center justify-between p-5 rounded-3xl border-2 transition-all ' +
-              (selectedOption()?.id === opt.id ? 'border-blue-600 bg-blue-50/50' : 'border-slate-100 hover:border-slate-200')">
-              <div class="flex items-center gap-4 text-left">
-                <div [class]="'w-12 h-12 rounded-2xl flex items-center justify-center text-xl ' + opt.color">
-                  {{ opt.id === 'BRONZE' ? '🥉' : opt.id === 'PRATA' ? '🥈' : '🥇' }}
-                </div>
-                <div>
-                  <h4 class="font-black text-slate-800 uppercase italic text-sm">{{ opt.label }}</h4>
-                  <p class="text-[10px] font-bold text-slate-500 uppercase">{{ opt.boost }}</p>
-                </div>
-              </div>
-              <div class="text-right">
-                <span class="block font-black text-slate-900 text-sm">{{ opt.cost }} Z</span>
-              </div>
-            </button>
-          }
-        </div>
-
-        <button
-          (click)="confirm()"
-          [disabled]="!selectedOption()"
-          class="w-full py-5 bg-slate-900 text-white font-black rounded-2xl uppercase tracking-widest shadow-xl active:scale-95 transition-all disabled:opacity-50">
-          Confirmar Patrocínio
-        </button>
-      </div>
+<div class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-navy-950/40 backdrop-blur-sm">
+  <div class="bg-white w-full max-w-md rounded-t-[3rem] sm:rounded-3xl p-8 shadow-2xl animate-in slide-in-from-bottom duration-300">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-xl font-extrabold text-navy-900 uppercase tracking-tight">Impulsionar Alerta</h2>
+      <button (click)="close.emit()" class="p-2 bg-slate-50 hover:bg-slate-100 rounded-full text-slate-400 hover:text-navy-900 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
     </div>
+
+    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6 leading-relaxed">Escolha o nível de patrocínio para aumentar a visibilidade e prioridade desta ocorrência.</p>
+
+    <div class="space-y-3 mb-8">
+      @for (opt of options; track opt.id) {
+        <button
+          (click)="selectedOption.set(opt)"
+          [class]="'w-full flex items-center justify-between p-5 rounded-3xl border-2 transition-all ' +
+          (selectedOption()?.id === opt.id ? 'border-navy-900 bg-navy-50/50 shadow-md' : 'border-slate-100 hover:border-slate-200 bg-white')">
+          <div class="flex items-center gap-4 text-left">
+            <div [class]="'w-12 h-12 rounded-2xl flex items-center justify-center text-xl ' + opt.color">
+              {{ opt.id === 'BRONZE' ? '🥉' : opt.id === 'PRATA' ? '🥈' : '🥇' }}
+            </div>
+            <div>
+              <h4 class="font-extrabold text-navy-900 uppercase tracking-tight text-sm">{{ opt.label }}</h4>
+              <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-0.5">{{ opt.boost }}</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="block font-black text-navy-900 text-base">{{ opt.cost }} Z</span>
+          </div>
+        </button>
+      }
+    </div>
+
+    <button
+      (click)="confirm()"
+      [disabled]="!selectedOption()"
+      class="w-full py-4 bg-navy-900 text-white font-extrabold rounded-full uppercase tracking-widest shadow-lg shadow-navy-900/20 active:scale-95 transition-all disabled:opacity-50 text-sm">
+      Confirmar Patrocínio
+    </button>
+  </div>
+</div>

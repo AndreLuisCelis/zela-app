@@ -5,7 +5,23 @@ module.exports = {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            },
             colors: {
+                navy: {
+                    50: '#eef2ff',
+                    100: '#dbe4ff',
+                    200: '#bfcfff',
+                    300: '#93aafd',
+                    400: '#6479fa',
+                    500: '#4050f4',
+                    600: '#2e30e9',
+                    700: '#2524cf',
+                    800: '#2320a8',
+                    900: '#1B2559',
+                    950: '#111340',
+                },
                 slate: {
                     50: '#f8fafc',
                     100: '#f1f5f9',
@@ -22,7 +38,8 @@ module.exports = {
             },
             borderRadius: {
                 '3xl': '1.5rem',
-            }
+                '4xl': '2rem',
+            },
         },
     },
     plugins: [],

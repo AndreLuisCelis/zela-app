@@ -28,17 +28,17 @@ export class NoticeModalComponent {
 
   get colorClass(): string {
     switch (this.type()) {
-      case 'error': return 'bg-red-100 text-red-600';
-      case 'success': return 'bg-emerald-100 text-emerald-600';
-      default: return 'bg-blue-100 text-blue-600';
+      case 'error': return 'bg-red-50 text-red-600 border-red-100';
+      case 'success': return 'bg-emerald-50 text-emerald-600 border-emerald-100';
+      default: return 'bg-navy-50 text-navy-600 border-navy-100';
     }
   }
 
   get buttonClass(): string {
     switch (this.type()) {
-      case 'error': return 'bg-slate-900';
-      case 'success': return 'bg-emerald-600';
-      default: return 'bg-blue-600';
+      case 'error': return 'bg-navy-900 shadow-navy-900/20 hover:bg-navy-800';
+      case 'success': return 'bg-navy-900 shadow-navy-900/20 hover:bg-navy-800';
+      default: return 'bg-navy-900 shadow-navy-900/20 hover:bg-navy-800';
     }
   }
 }

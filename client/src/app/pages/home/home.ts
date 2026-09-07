@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { ZelaService } from '../../services/zela-service';
 import { Reports } from '../../models/report.interface';
 import { ReportCardComponent } from '../../components/report-card/report-card';
@@ -33,6 +34,8 @@ import { NoticeModalComponent } from '../../components/notice-modal/notice-modal
 export class Home {
   zelaService = inject(ZelaService);
   authService = inject(AuthService);
+  private router = inject(Router);
+
   loginEmail = '';
 
   activeTab = signal<'home' | 'map' | 'profile'>('home');
@@ -41,7 +44,7 @@ export class Home {
   showAuthModal = signal(false);
   showSolveModal = signal(false);
   showNoticeModal = signal(false);
-  
+
   noticeData = signal<{ 
     title: string, 
     message: string, 
@@ -57,6 +60,10 @@ export class Home {
 
   activeReportId = signal<string | null>(null);
   activeSolveReportId = signal<string | null>(null);
+
+  openReportDetail(report: Reports) {
+    this.router.navigate(['/report', report._id]);
+  }
 
   requireAuth(callback: () => void) {
     if (this.authService.isAuthenticatedValue) {
@@ -86,7 +93,6 @@ export class Home {
         this.showSponsorModal.set(false);
         this.activeReportId.set(null);
       } else {
-        // Mostrar modal de aviso quando o saldo é insuficiente
         this.noticeData.set({
           title: 'Saldo Insuficiente',
           message: 'Não tens Zelas (🪙) suficientes para este nível de patrocínio. Ganha mais resolvendo ocorrências!',
@@ -139,7 +145,6 @@ export class Home {
 
   handleNoticeAction() {
     if (this.noticeData().actionType === 'request_resolver') {
-      // Simulação de solicitação
       this.noticeData.set({
         title: 'Solicitação Enviada',
         message: 'Sua solicitação para ser um Resolvedor foi recebida! Aguarde a aprovação da administração.',
@@ -151,13 +156,9 @@ export class Home {
 
   confirmSolve(data: { plan: string; images: File[] }) {
     console.log('Resolving report:', this.activeSolveReportId(), data);
-
-    // Aqui vai a lógica para marcar como 'Em Progresso' ou similar
-    // Por enquanto, apenas fecha o modal e limpa estado
     this.showSolveModal.set(false);
     this.activeSolveReportId.set(null);
 
-    // Exibe o modal padrão de sucesso
     this.noticeData.set({
       title: 'Missão Aceita',
       message: 'Missão aceite! Obrigado por ajudar a comunidade.',

@@ -1,0 +1,101 @@
+<div class="min-h-screen bg-slate-50 flex flex-col pb-6">
+  <!-- Sticky Header Back -->
+  <header class="bg-white/90 backdrop-blur-md sticky top-0 z-30 px-4 py-3 flex items-center justify-between border-b border-slate-100">
+    <button (click)="goBack()" class="p-2 rounded-full bg-slate-50 hover:bg-slate-100 text-navy-900 transition-colors flex items-center gap-2">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+      </svg>
+      <span class="text-[10px] font-bold uppercase tracking-widest">Voltar</span>
+    </button>
+  </header>
+
+  @if (report()) {
+  <main class="flex-1 max-w-2xl mx-auto w-full p-4 md:p-6 flex flex-col">
+    <!-- Carousel -->
+    @if (report()!.photos.length > 0) {
+    <div class="relative w-full h-[40vh] min-h-[300px] mb-6 rounded-3xl overflow-hidden shadow-sm">
+      <div class="absolute inset-0 flex overflow-x-auto snap-x snap-mandatory scrollbar-hide [scrollbar-width:none]">
+        @for (photo of report()!.photos; track photo; let i = $index) {
+        <div class="min-w-full flex-shrink-0 snap-center h-full">
+          <img [src]="photo" class="w-full h-full object-cover" />
+        </div>
+        }
+      </div>
+      @if (report()!.photos.length > 1) {
+      <div class="absolute bottom-4 right-4 bg-navy-900/60 backdrop-blur-md px-3 py-1.5 rounded-full text-white text-xs font-bold tracking-widest">
+        1/{{ report()!.photos.length }}
+      </div>
+      }
+    </div>
+    }
+
+    <!-- Conteúdo -->
+    <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 mb-6 flex-1">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="bg-navy-50 px-3 py-1.5 rounded-full flex items-center gap-1.5 border border-navy-100">
+          <span class="text-sm">{{ report()!.category === 'Infraestrutura' ? '🏗️' : '🌳' }}</span>
+          <span class="text-xs font-bold text-navy-700 uppercase tracking-widest">{{ report()!.category }}</span>
+        </div>
+        <div class="flex-1"></div>
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ report()!.createdAt | date:'short' }}</span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-extrabold text-navy-900 leading-tight mb-4">
+        {{ report()!.title }}
+      </h1>
+
+      <div class="flex items-center text-slate-500 text-xs font-bold uppercase tracking-widest mb-6">
+        <svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span>{{ report()!.location }}</span>
+      </div>
+
+      <div class="mb-8 bg-slate-50 p-5 rounded-2xl border border-slate-100">
+        <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Descrição Detalhada</h3>
+        <p class="text-slate-600 font-medium leading-relaxed">
+          {{ report()!.description }}
+        </p>
+      </div>
+
+      <!-- Métricas -->
+      <div class="grid grid-cols-2 gap-4 mb-8">
+        <div class="bg-white border-2 border-slate-100 p-4 rounded-2xl flex flex-col items-center justify-center">
+          <span class="text-2xl mb-1">❤️</span>
+          <span class="text-xl font-black text-navy-900">{{ report()!.likes || 0 }}</span>
+          <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Apoiadores</span>
+        </div>
+        <div class="bg-white border-2 border-slate-100 p-4 rounded-2xl flex flex-col items-center justify-center">
+          <span class="text-2xl mb-1">🪙</span>
+          <span class="text-xl font-black text-amber-600">{{ report()!.sponsors || 0 }}</span>
+          <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Patrocínios</span>
+        </div>
+      </div>
+
+      <!-- Ações -->
+      <div class="flex flex-col gap-3 mt-auto">
+        <button (click)="openSolve()" class="w-full py-4 bg-navy-900 text-white font-extrabold rounded-full uppercase tracking-widest shadow-lg shadow-navy-900/20 active:scale-95 transition-all text-sm">
+          Eu Resolvo!
+        </button>
+        <div class="flex gap-3">
+          <button (click)="openSponsor()" class="flex-1 py-4 bg-transparent border-2 border-navy-100 text-navy-900 font-bold rounded-full uppercase tracking-widest hover:bg-navy-50 active:scale-95 transition-all text-[10px]">
+            Patrocinar
+          </button>
+          <button class="flex-1 py-4 bg-transparent border-2 border-navy-100 text-navy-900 font-bold rounded-full uppercase tracking-widest hover:bg-navy-50 active:scale-95 transition-all text-[10px]">
+            Apoiar Causa
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+  }
+</div>
+
+@if (showSponsorModal()) {
+<app-sponsor-modal (close)="showSponsorModal.set(false)" (success)="handleSponsorSuccess($event)" />
+}
+
+@if (showSolveModal()) {
+<app-solve-modal (close)="showSolveModal.set(false)" (success)="confirmSolve($event)" />
+}

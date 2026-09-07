@@ -1,92 +1,66 @@
-<div class="bg-white border border-gray-100 rounded-[2.5rem] p-6 shadow-sm mb-6 hover:shadow-md transition-shadow">
-  <div class="flex items-center justify-between mb-4">
-    <span class="text-[10px] font-black text-blue-500 bg-blue-50 px-3 py-1 rounded-full uppercase tracking-widest">
-      {{ report().category }}
-    </span>
-    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">Há 2 horas</span>
+<div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+  <div class="flex items-center gap-3 mb-4">
+    <div class="bg-navy-50 px-3 py-1.5 rounded-full flex items-center gap-1.5 border border-navy-100">
+      <span class="text-xs">{{ report().category === 'Infraestrutura' ? '🏗️' : '🌳' }}</span>
+      <span class="text-[10px] font-bold text-navy-700 uppercase tracking-widest">{{ report().category }}</span>
+    </div>
+    <div class="flex-1"></div>
+    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Agora</span>
   </div>
 
-  <h3 class="text-lg font-black text-slate-800 uppercase italic mb-1">{{ report().title }}</h3>
-  <p class="text-xs text-gray-500 mb-4 line-clamp-2 leading-relaxed">{{ report().description }}</p>
+  <h3 class="text-base font-extrabold text-navy-900 leading-tight mb-3 line-clamp-2">
+    {{ report().title }}
+  </h3>
 
-  <!-- Carousel com Setas -->
-  <div class="relative group mb-4">
-    <div #scrollContainer (scroll)="onScroll($event)"
-      class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory scroll-smooth">
-      @for (img of report().images; track $index) {
-      <div class="flex-shrink-0 w-full aspect-video bg-slate-100 rounded-3xl overflow-hidden shadow-inner snap-center">
-        <img [src]="img" class="w-full h-full object-cover" />
+  @if (report().photos.length > 0) {
+  <div class="relative mb-4 group h-48 rounded-2xl overflow-hidden">
+    <div class="absolute inset-0 flex overflow-x-auto snap-x snap-mandatory scrollbar-hide [scrollbar-width:none]">
+      @for (photo of report().photos; track photo; let i = $index) {
+      <div class="min-w-full flex-shrink-0 snap-center h-full">
+        <img [src]="photo" class="w-full h-full object-cover" loading="lazy" />
       </div>
       }
     </div>
-    <!-- Indicador de Paginação -->
-    @if (report().images.length > 1) {
-    <div
-      class="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white px-2.5 py-1 rounded-full text-[10px] font-black tracking-widest z-10">
-      {{ currentIndex() + 1 }} / {{ report().images.length }}
-    </div>
-    }
-
-    <div
-      class="absolute bottom-10 left-4 bg-white/80 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-bold flex items-center gap-1">
-      📍 {{ report().location }}
-    </div>
-
-    <!-- Setas de Navegação -->
-    @if (report().images.length > 1) {
-    <button (click)="scrollPrev()"
-      class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-width="3" d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
-    <button (click)="scrollNext()"
-      class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-width="3" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
-
-    <!-- Indicadores -->
-    <div
-      class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 px-2 py-1 bg-black/20 backdrop-blur-md rounded-full">
-      @for (img of report().images; track $index) {
-      <div [class]="
-              'w-1.5 h-1.5 rounded-full transition-all ' +
-              (currentIndex() === $index ? 'bg-white w-4' : 'bg-white/50')
-            "></div>
-      }
+    @if (report().photos.length > 1) {
+    <div class="absolute bottom-3 right-3 bg-navy-900/60 backdrop-blur-md px-2 py-1 rounded-full text-white text-[10px] font-bold tracking-widest">
+      1/{{ report().photos.length }}
     </div>
     }
   </div>
-  <div class="flex gap-4 mb-6">
-    <div class="flex-1 bg-slate-50 rounded-2xl p-3 text-center border border-slate-100">
-      <p class="text-[9px] font-black text-gray-400 uppercase mb-1 tracking-widest">Fundo atual</p>
-      <p class="text-sm font-black text-amber-600">🪙 {{ report().zelasAcumulados }}</p>
-    </div>
-    <div class="flex-1 bg-slate-50 rounded-2xl p-3 text-center border border-slate-100">
-      <p class="text-[9px] font-black text-gray-400 uppercase mb-1 tracking-widest">Apoiadores</p>
-      <p class="text-sm font-black text-blue-600">👥 {{ report().supportCount }}</p>
-    </div>
+  }
+
+  <div class="flex items-center text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-4">
+    <svg class="w-3.5 h-3.5 mr-1 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+    <span class="truncate">{{ report().location }}</span>
   </div>
 
-  <div class="flex flex-col gap-3">
-    <button (click)="solve.emit(report()._id)"
-      class="w-full py-4 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 text-[10px] font-black uppercase tracking-widest active:scale-95 transition-all hover:bg-emerald-100 flex items-center justify-center gap-2">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-      </svg>
-      Eu Resolvo!
-    </button>
-    <div class="grid grid-cols-2 gap-3">
-      <button (click)="sponsor.emit(report()._id)"
-        class="py-4 rounded-2xl bg-amber-50 text-[10px] font-black uppercase text-amber-600 border border-amber-100 active:scale-95 transition-transform hover:bg-amber-100">
-        Patrocinar
-      </button>
-      <button (click)="support.emit(report()._id)"
-        class="py-4 rounded-2xl bg-blue-50 text-[10px] font-black uppercase text-blue-600 border border-blue-100 active:scale-95 transition-transform hover:bg-blue-100">
-        Apoiar Causa
-      </button>
+  <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+    <div class="flex gap-4">
+      <div class="flex items-center gap-1.5 group cursor-pointer">
+        <div class="p-1.5 rounded-full bg-slate-50 group-hover:bg-red-50 group-hover:text-red-500 text-slate-400 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+        <span class="text-xs font-bold text-slate-500 group-hover:text-red-500">{{ report().likes || 0 }}</span>
+      </div>
+      <div class="flex items-center gap-1.5 group cursor-pointer">
+        <div class="p-1.5 rounded-full bg-slate-50 group-hover:bg-amber-50 group-hover:text-amber-500 text-slate-400 transition-colors">
+          <span class="text-sm grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100">🪙</span>
+        </div>
+        <span class="text-xs font-bold text-slate-500 group-hover:text-amber-600">{{ report().sponsors || 0 }}</span>
+      </div>
     </div>
+    
+    <button (click)="selectReport.emit(report())"
+      class="text-[10px] font-black text-navy-900 uppercase tracking-widest hover:text-navy-600 flex items-center gap-1 transition-colors">
+      Ver detalhes
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </button>
   </div>
 </div>

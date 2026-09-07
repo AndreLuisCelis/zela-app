@@ -1,40 +1,41 @@
-<header class="bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between sticky top-0 z-30">
+<header class="bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between sticky top-0 z-30">
   <div class="flex items-center gap-3">
     @if (user()) {
-    <img [src]="user()?.avatar" class="w-10 h-10 rounded-full bg-slate-100" />
+    <img [src]="user()?.avatar" class="w-10 h-10 rounded-full bg-slate-100 ring-2 ring-navy-100" />
     <div class="flex flex-col justify-center">
-      <p class="text-[8px] font-black text-blue-500 uppercase tracking-widest leading-none mb-0.5">
+      <p class="text-[9px] font-bold text-navy-600 uppercase tracking-widest leading-none mb-0.5">
         Cidadão Ativo
       </p>
-      <h1 class="text-xs font-black text-slate-900 uppercase italic leading-tight">{{ user()?.name }}</h1>
-      <p class="text-[9px] font-bold text-slate-400 truncate max-w-[120px]">{{ user()?.email }}</p>
+      <h1 class="text-sm font-extrabold text-navy-900 leading-tight">{{ user()?.name }}</h1>
     </div>
     } @else {
-    <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">
+    <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
       <div class="w-6 h-6 bg-slate-300 rounded-full"></div>
     </div>
     <div>
-      <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest leading-none">
+      <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none">
         Bem-vindo
       </p>
-      <h1 class="text-xs font-black text-slate-900 uppercase italic">Visitante</h1>
+      <h1 class="text-sm font-extrabold text-navy-900">Visitante</h1>
     </div>
     }
   </div>
 
   @if (user()) {
-  <div class="bg-amber-50 px-3 py-2 rounded-xl border border-amber-100">
-    <span class="text-xs font-black text-amber-700">🪙 {{ user()?.balance }}</span>
+  <div class="flex items-center gap-2">
+    <div class="bg-amber-50 px-3.5 py-2 rounded-full border border-amber-100">
+      <span class="text-xs font-bold text-amber-700">🪙 {{ user()?.balance }}</span>
+    </div>
+    <button (click)="authService.logout()"
+      class="p-2.5 bg-slate-50 rounded-full hover:bg-red-50 text-slate-400 hover:text-red-500 transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+      </svg>
+    </button>
   </div>
-  <button (click)="authService.logout()"
-    class="p-3 bg-slate-100 rounded-xl hover:bg-red-50 text-slate-500 hover:text-red-500 transition-colors">
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
-    </svg>
-  </button>
   } @else {
   <button (click)="loginClick.emit()"
-    class="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-blue-600 transition-colors shadow-lg active:scale-95">
+    class="px-5 py-2.5 bg-navy-900 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-navy-800 transition-colors shadow-sm active:scale-95">
     Entrar
   </button>
   }
