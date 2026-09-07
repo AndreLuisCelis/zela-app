@@ -12,18 +12,18 @@
   @if (report()) {
   <main class="flex-1 max-w-2xl mx-auto w-full p-4 md:p-6 flex flex-col">
     <!-- Carousel -->
-    @if (report()!.photos.length > 0) {
+    @if (report()!.images.length > 0) {
     <div class="relative w-full h-[40vh] min-h-[300px] mb-6 rounded-3xl overflow-hidden shadow-sm">
       <div class="absolute inset-0 flex overflow-x-auto snap-x snap-mandatory scrollbar-hide [scrollbar-width:none]">
-        @for (photo of report()!.photos; track photo; let i = $index) {
+        @for (image of report()!.images; track image; let i = $index) {
         <div class="min-w-full flex-shrink-0 snap-center h-full">
-          <img [src]="photo" class="w-full h-full object-cover" />
+          <img [src]="image" class="w-full h-full object-cover" />
         </div>
         }
       </div>
-      @if (report()!.photos.length > 1) {
+      @if (report()!.images.length > 1) {
       <div class="absolute bottom-4 right-4 bg-navy-900/60 backdrop-blur-md px-3 py-1.5 rounded-full text-white text-xs font-bold tracking-widest">
-        1/{{ report()!.photos.length }}
+        1/{{ report()!.images.length }}
       </div>
       }
     </div>
@@ -63,26 +63,26 @@
       <div class="grid grid-cols-2 gap-4 mb-8">
         <div class="bg-white border-2 border-slate-100 p-4 rounded-2xl flex flex-col items-center justify-center">
           <span class="text-2xl mb-1">❤️</span>
-          <span class="text-xl font-black text-navy-900">{{ report()!.likes || 0 }}</span>
+          <span class="text-xl font-black text-navy-900">{{ report()!.supportCount || 0 }}</span>
           <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Apoiadores</span>
         </div>
         <div class="bg-white border-2 border-slate-100 p-4 rounded-2xl flex flex-col items-center justify-center">
           <span class="text-2xl mb-1">🪙</span>
-          <span class="text-xl font-black text-amber-600">{{ report()!.sponsors || 0 }}</span>
+          <span class="text-xl font-black text-amber-600">{{ report()!.zelasAcumulados || 0 }}</span>
           <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Patrocínios</span>
         </div>
       </div>
 
       <!-- Ações -->
       <div class="flex flex-col gap-3 mt-auto">
-        <button (click)="openSolve()" class="w-full py-4 bg-navy-900 text-white font-extrabold rounded-full uppercase tracking-widest shadow-lg shadow-navy-900/20 active:scale-95 transition-all text-sm">
+        <button (click)="handleSolve()" class="w-full py-4 bg-navy-900 text-white font-extrabold rounded-full uppercase tracking-widest shadow-lg shadow-navy-900/20 active:scale-95 transition-all text-sm">
           Eu Resolvo!
         </button>
         <div class="flex gap-3">
           <button (click)="openSponsor()" class="flex-1 py-4 bg-transparent border-2 border-navy-100 text-navy-900 font-bold rounded-full uppercase tracking-widest hover:bg-navy-50 active:scale-95 transition-all text-[10px]">
             Patrocinar
           </button>
-          <button class="flex-1 py-4 bg-transparent border-2 border-navy-100 text-navy-900 font-bold rounded-full uppercase tracking-widest hover:bg-navy-50 active:scale-95 transition-all text-[10px]">
+          <button (click)="handleSupport()" class="flex-1 py-4 bg-transparent border-2 border-navy-100 text-navy-900 font-bold rounded-full uppercase tracking-widest hover:bg-navy-50 active:scale-95 transition-all text-[10px]">
             Apoiar Causa
           </button>
         </div>
@@ -98,4 +98,31 @@
 
 @if (showSolveModal()) {
 <app-solve-modal (close)="showSolveModal.set(false)" (success)="confirmSolve($event)" />
+}
+
+@if (showAuthModal()) {
+<div class="fixed inset-0 bg-navy-950/40 backdrop-blur-sm z-[60] flex items-center justify-center p-6">
+  <div class="relative w-full max-w-sm">
+    <button (click)="showAuthModal.set(false)"
+      class="absolute -top-3 -right-3 z-10 bg-white rounded-full p-2 shadow-lg text-slate-400 hover:text-red-500 transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <div class="bg-white rounded-3xl overflow-hidden shadow-2xl">
+      <app-auth (success)="showAuthModal.set(false)"></app-auth>
+    </div>
+  </div>
+</div>
+}
+
+@if (showNoticeModal()) {
+<app-notice-modal
+  [title]="noticeData().title"
+  [message]="noticeData().message"
+  [type]="noticeData().type"
+  [buttonText]="noticeData().buttonText || 'Entendi'"
+  [actionButtonText]="noticeData().actionButtonText"
+  (action)="handleNoticeAction()"
+  (close)="showNoticeModal.set(false)" />
 }

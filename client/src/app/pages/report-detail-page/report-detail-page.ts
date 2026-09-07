@@ -4,7 +4,6 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ZelaService } from '../../services/zela-service';
 import { AuthService } from '../../services/auth';
 import { Reports } from '../../models/report.interface';
-import { HeaderComponent } from '../../components/header/header';
 import { SponsorModalComponent } from '../../components/sponsor-modal/sponsor-modal';
 import { SolveModalComponent } from '../../components/solve-modal/solve-modal';
 import { AuthComponent } from '../../components/auth/auth';
@@ -17,7 +16,6 @@ import { SponsorOption } from '../../models/sponsor-option.interface';
   imports: [
     CommonModule,
     RouterModule,
-    HeaderComponent,
     SponsorModalComponent,
     SolveModalComponent,
     AuthComponent,
